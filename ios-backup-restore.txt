@@ -1,0 +1,27 @@
+Save the running config first
+  copy running-config startup-config
+
+Back up the running config to a TFTP server at 192.168.10.5
+  copy running-config tftp
+  Address or name of remote host []? 192.168.10.5
+  Destination filename [EDGE-R1-confg]? EDGE-R1-backup-2026-11-25
+
+Back up the startup config the same way
+  copy startup-config tftp
+  Address or name of remote host []? 192.168.10.5
+  Destination filename [EDGE-R1-confg]? EDGE-R1-startup-2026-11-25
+
+Check the backup is on the server before you change anything
+
+Restore a config from the TFTP server
+  copy tftp running-config
+  Address or name of remote host []? 192.168.10.5
+  Source filename []? EDGE-R1-backup-2026-11-25
+  Destination filename [running-config]? Press Enter to accept
+
+Save the restored config so it survives a reload
+  copy running-config startup-config
+
+Check the restore worked
+  show running-config
+  show startup-config

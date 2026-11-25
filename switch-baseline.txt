@@ -1,0 +1,50 @@
+hostname ACCESS-SW
+!
+vlan 10
+ name SALES
+!
+vlan 20
+ name HR
+!
+vlan 30
+ name GUEST
+!
+vlan 99
+ name MANAGEMENT
+!
+interface Vlan99
+ description Management
+ ip address 192.168.99.10 255.255.255.0
+ no shutdown
+!
+ip default-gateway 192.168.99.1
+!
+interface range GigabitEthernet0/0-1
+ description Uplink trunks
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ switchport trunk allowed vlan 10,20,30,99
+ no shutdown
+!
+interface range GigabitEthernet1/0-5
+ description Access ports VLAN 10
+ switchport mode access
+ switchport access vlan 10
+ spanning-tree portfast
+ no shutdown
+!
+interface range GigabitEthernet1/6-11
+ description Access ports VLAN 20
+ switchport mode access
+ switchport access vlan 20
+ spanning-tree portfast
+ no shutdown
+!
+interface range GigabitEthernet1/12-17
+ description Access ports VLAN 30
+ switchport mode access
+ switchport access vlan 30
+ spanning-tree portfast
+ no shutdown
+!
+end

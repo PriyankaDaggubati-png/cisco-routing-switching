@@ -1,0 +1,26 @@
+hostname EDGE-R1
+!
+access-list 10 permit 192.168.10.0 0.0.0.255
+access-list 10 permit 192.168.20.0 0.0.0.255
+access-list 10 permit 192.168.30.0 0.0.0.255
+!
+access-list 100 deny tcp any any eq 23
+access-list 100 deny tcp any any eq 445
+access-list 100 permit ip any any
+!
+ip nat inside source list 10 interface GigabitEthernet0/0 overload
+!
+interface GigabitEthernet0/0
+ description WAN link to provider
+ ip address 203.0.113.2 255.255.255.252
+ ip nat outside
+ ip access-group 100 in
+ no shutdown
+!
+interface GigabitEthernet0/1
+ description LAN
+ ip address 192.168.10.1 255.255.255.0
+ ip nat inside
+ no shutdown
+!
+end

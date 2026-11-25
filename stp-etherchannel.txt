@@ -1,0 +1,30 @@
+hostname DIST-SW
+!
+spanning-tree mode rapid-pvst
+spanning-tree vlan 10,20,30 root primary
+!
+vlan 10
+ name SALES
+!
+vlan 20
+ name HR
+!
+vlan 30
+ name GUEST
+!
+interface range GigabitEthernet0/0-1
+ description EtherChannel LACP to core
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ switchport trunk allowed vlan 10,20,30
+ channel-group 1 mode active
+ no shutdown
+!
+interface Port-channel1
+ description EtherChannel LACP to core
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ switchport trunk allowed vlan 10,20,30
+ no shutdown
+!
+end

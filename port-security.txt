@@ -1,0 +1,17 @@
+hostname ACCESS-SW
+!
+interface range GigabitEthernet1/0-11
+ description Access ports with port security
+ switchport mode access
+ switchport port-security
+ switchport port-security maximum 2
+ switchport port-security violation restrict
+ switchport port-security mac-address sticky
+ no shutdown
+!
+interface range GigabitEthernet1/12-23
+ description Unused ports, shut down
+ switchport mode access
+ shutdown
+!
+end
